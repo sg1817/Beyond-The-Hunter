@@ -3,39 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Sérgio Netto">
-<title>Dados - Beyond The Hunter</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Dados - Hunter RPG</title>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<nav><a href="main.html">Início</a><a href="ficha.html">Ficha</a><a class="ativo" href="dado.html">Dados</a><a href="nen.html">Nen</a></nav>
+<nav><a href="index.html">Início</a><a href="ficha.html">Ficha</a><a class="ativo" href="dados.html">Dados</a><a href="nen.html">Nen</a></nav>
 <main>
   <h1>Rolagem de dados</h1>
   <section>
-    <h2>Teste simples</h2>
     <div class="grade">
       <label>Atributo <select id="atributo"></select></label>
       <label>Perícia <select id="pericia"></select></label>
-      <label>Dificuldade <select id="dif"></select></label>
     </div>
     <p><label><input type="checkbox" id="vant"> Vantagem (+2 dados)</label>
        <label><input type="checkbox" id="desv"> Desvantagem (-2 dados)</label></p>
     <button id="rolar">Rolar</button>
     <div id="resultado"></div>
   </section>
-  <section>
-    <h2>Teste oposto</h2>
-    <div class="grade">
-      <label>Dados do atacante <input type="number" id="aDados" min="0" value="4"></label>
-      <label>Atributo do atacante <input type="number" id="aAtr" min="0" max="5" value="2"></label>
-      <label>Dados do defensor <input type="number" id="bDados" min="0" value="4"></label>
-      <label>Atributo do defensor <input type="number" id="bAtr" min="0" max="5" value="2"></label>
-    </div>
-    <p><button id="opor">Rolar disputa</button></p>
-    <div id="resOposto"></div>
-  </section>
 </main>
-<script src="js/comum.js"></script>
-<script src="js/dados.js"></script>
+<script src="../JavaScript/comum.js"></script>
+<script src="../JavaScript/dado.js"></script>
 </body>
 </html>

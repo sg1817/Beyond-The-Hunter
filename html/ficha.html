@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Sérgio Netto">
-<title>Ficha - Beyond The Hunter</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Ficha - Hunter RPG</title>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <nav><a href="main.html">Início</a><a class="ativo" href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="nen.html">Nen</a></nav>
@@ -13,12 +12,25 @@
   <h1>Ficha de personagem</h1>
   <section>
     <h2>Identificação</h2>
+    <p id="modo" class="suave"></p>
     <div class="grade">
       <label>Nome <input id="nome"></label>
       <label>Idade <input id="idade"></label>
-      <label>Origem <input id="origem"></label>
       <label>Ocupação <input id="ocupacao"></label>
     </div>
+    <div id="blocoPe" hidden>
+      <label>Pontos de Evolução (PE) disponíveis <input type="number" id="pe" min="0"></label>
+    </div>
+  </section>
+  <section>
+    <h2>Origem</h2>
+    <div class="grade">
+      <label>Origem
+        <select id="origem"><option value="">Escolha</option></select>
+      </label>
+      <label>Perícia da origem (+1 grátis) <select id="periciaOrigem"></select></label>
+    </div>
+    <p id="origemInfo" class="suave"></p>
   </section>
   <section>
     <h2>Recursos</h2>
@@ -31,13 +43,11 @@
   <section>
     <h2>Atributos</h2>
     <p class="suave" id="ptsAtr"></p>
-    <p class="suave">Na criação: todos começam em 1, você ganha 6 pontos extras e o máximo é 3.</p>
     <div class="grade" id="atributos"></div>
   </section>
   <section>
     <h2>Perícias</h2>
     <p class="suave" id="ptsPer"></p>
-    <p class="suave">Na criação: 10 pontos, máximo 3 por perícia.</p>
     <div class="grade" id="pericias"></div>
   </section>
   <section>
@@ -51,6 +61,11 @@
     </label>
     <label>História <textarea id="historia"></textarea></label>
   </section>
+  <section id="blocoFinal">
+    <h2>Finalizar criação</h2>
+    <p class="suave" id="faltam"></p>
+    <button id="finalizar">Finalizar criação</button>
+  </section>
   <section>
     <h2>Backup</h2>
     <div class="grade">
@@ -59,8 +74,7 @@
     </div>
   </section>
 </main>
-<script src="js/comum.js"></script>
-<script src="js/ficha.js"></script>
+<script src="../JavaScript/comum.js"></script>
+<script src="../JavaScript/ficha.js"></script>
 </body>
 </html>
-
