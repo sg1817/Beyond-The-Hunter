@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Sérgio Netto">
+<title>Nen - Beyond The Hunter</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav><a href="main.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a class="ativo" href="nen.html">Nen</a></nav>
+<main>
+  <h1>Painel de Nen</h1>
+  <section>
+    <div class="grade">
+      <div><span class="suave">Aura atual</span><div class="num" id="pa">0</div></div>
+      <div><span class="suave">Estado</span><div class="num" id="estado">-</div></div>
+      <label>Controle de Nen <select id="controle"></select></label>
+    </div>
+    <p><button id="descansar">Descanso prolongado (restaura PA)</button></p>
+    <p id="msg" class="suave"></p>
+  </section>
+  <section>
+    <h2>Técnicas</h2>
+    <p class="suave">O Controle de Nen libera as técnicas. O domínio de cada uma você define aqui.</p>
+    <div id="tecnicas"></div>
+  </section>
+</main>
+<script src="js/comum.js"></script>
+<script src="js/nen.js"></script>
+</body>
+</html>
+

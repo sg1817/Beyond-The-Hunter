@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Sérgio Netto">
+<title>Ficha - Beyond The Hunter</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav><a href="main.html">Início</a><a class="ativo" href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="nen.html">Nen</a></nav>
+<main>
+  <h1>Ficha de personagem</h1>
+  <section>
+    <h2>Identificação</h2>
+    <div class="grade">
+      <label>Nome <input id="nome"></label>
+      <label>Idade <input id="idade"></label>
+      <label>Origem <input id="origem"></label>
+      <label>Ocupação <input id="ocupacao"></label>
+    </div>
+  </section>
+  <section>
+    <h2>Recursos</h2>
+    <div class="grade">
+      <div><span class="suave">Vida (PV)</span><div class="num" id="pv">0</div></div>
+      <div><span class="suave">Aura (PA)</span><div class="num" id="pa">0</div></div>
+      <div><span class="suave">Defesa física</span><div class="num" id="defesa">0</div></div>
+    </div>
+  </section>
+  <section>
+    <h2>Atributos</h2>
+    <p class="suave" id="ptsAtr"></p>
+    <p class="suave">Na criação: todos começam em 1, você ganha 6 pontos extras e o máximo é 3.</p>
+    <div class="grade" id="atributos"></div>
+  </section>
+  <section>
+    <h2>Perícias</h2>
+    <p class="suave" id="ptsPer"></p>
+    <p class="suave">Na criação: 10 pontos, máximo 3 por perícia.</p>
+    <div class="grade" id="pericias"></div>
+  </section>
+  <section>
+    <h2>Nen e história</h2>
+    <label>Tipo de Nen
+      <select id="tipoNen">
+        <option value="">Escolha</option>
+        <option>Reforço</option><option>Transformação</option><option>Emissão</option>
+        <option>Materialização</option><option>Manipulação</option><option>Especialização</option>
+      </select>
+    </label>
+    <label>História <textarea id="historia"></textarea></label>
+  </section>
+  <section>
+    <h2>Backup</h2>
+    <div class="grade">
+      <button id="exportar">Baixar personagem</button>
+      <label>Carregar personagem <input type="file" id="importar" accept=".json"></label>
+    </div>
+  </section>
+</main>
+<script src="js/comum.js"></script>
+<script src="js/ficha.js"></script>
+</body>
+</html>
+
