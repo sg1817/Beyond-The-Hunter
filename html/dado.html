@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<nav><a href="index.html">Início</a><a href="ficha.html">Ficha</a><a class="ativo" href="dados.html">Dados</a><a href="nen.html">Nen</a></nav>
-<main>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<nav aria-label="Principal"><a href="main.html">Início</a><a href="ficha.html">Ficha</a><a class="ativo" aria-current="page" href="dado.html">Dados</a><a href="combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a href="nen.html">Nen</a></nav>
+<main id="conteudo">
   <h1>Rolagem de dados</h1>
   <section>
     <div class="grade">
@@ -18,7 +19,7 @@
     <p><label><input type="checkbox" id="vant"> Vantagem (+2 dados)</label>
        <label><input type="checkbox" id="desv"> Desvantagem (-2 dados)</label></p>
     <button id="rolar">Rolar</button>
-    <div id="resultado"></div>
+    <div id="resultado" aria-live="polite"></div>
   </section>
 </main>
 <script src="../JavaScript/comum.js"></script>

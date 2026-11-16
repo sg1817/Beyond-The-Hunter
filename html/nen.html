@@ -3,26 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Sérgio Netto">
-<title>Nen - Beyond The Hunter</title>
+<title>Nen - Hunter RPG</title>
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<nav><a href="main.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a class="ativo" href="nen.html">Nen</a></nav>
-<main>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<nav aria-label="Principal"><a href="main.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a class="ativo" aria-current="page" href="nen.html">Nen</a></nav>
+<main id="conteudo">
   <h1>Painel de Nen</h1>
-  <section>
+  <section id="painel">
     <div class="grade">
       <div><span class="suave">Aura atual</span><div class="num" id="pa">0</div></div>
       <div><span class="suave">Estado</span><div class="num" id="estado">-</div></div>
-      <label>Controle de Nen <select id="controle"></select></label>
+      <div><span class="suave">Controle de Nen</span><div class="num" id="controleTxt"></div></div>
+      <div><span class="suave">PE disponíveis</span><div class="num" id="pe">0</div></div>
     </div>
-    <p><button id="descansar">Descanso prolongado (restaura PA)</button></p>
-    <p id="msg" class="suave"></p>
+    <div class="barra" id="barraPA" role="progressbar" aria-label="Barra de aura"><div class="cheio"></div></div>
+    <div class="acoes">
+      <button id="evoluirControle"></button>
+      <button id="descansar" class="sec">Descanso prolongado (restaura PA)</button>
+    </div>
+    <p id="msg" class="suave" aria-live="polite"></p>
+  </section>
+  <section>
+    <h2>Rodada <span id="rodadaTxt">1</span></h2>
+    <div class="acoes">
+      <button id="proximaRodada">Próxima rodada</button>
+      <button id="zerarRodada" class="sec">Encerrar combate</button>
+    </div>
+    <p class="suave">A manutenção das técnicas e habilidades ativas é cobrada sozinha a cada rodada.</p>
+    <div id="logRodada" aria-live="polite"></div>
   </section>
   <section>
     <h2>Técnicas</h2>
-    <p class="suave">O Controle de Nen libera as técnicas. O domínio de cada uma você define aqui.</p>
+    <p class="suave">Evoluir o Controle e as técnicas gasta PE, concedidos pelo mestre.</p>
     <div id="tecnicas"></div>
   </section>
 </main>
@@ -30,4 +44,3 @@
 <script src="../JavaScript/nen.js"></script>
 </body>
 </html>
-

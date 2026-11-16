@@ -1,8 +1,8 @@
 /* Cores do site: troque aqui e todas as páginas mudam */
-:root{--bg:#0f1a2b;--painel:#17263d;--borda:#2b4060;--texto:#e8edf5;--suave:#9fb0c8;--aura:#4fd1c5;--alerta:#ff6b6b}
+:root{--bg:#0a0a0a;--painel:#141414;--borda:#3d3420;--texto:#f2ead3;--suave:#a89f88;--aura:#d4af37;--alerta:#ff6b6b}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--texto);font:16px/1.5 system-ui,sans-serif}
-h1,h2{font-family:Georgia,serif;margin:0 0 .6rem}
+h1,h2{font-family:Georgia,serif;margin:0 0 .6rem;color:var(--aura)}
 nav{display:flex;flex-wrap:wrap;gap:.5rem;padding:.8rem 1rem;border-bottom:1px solid var(--borda)}
 nav a{color:var(--suave);text-decoration:none;padding:.3rem .8rem;border-radius:6px}
 nav a:hover,nav a.ativo{color:var(--bg);background:var(--aura)}
@@ -27,3 +27,71 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .ctrl label{flex:1}
 .ctrl button{width:2.2rem;padding:.2rem}
 .ctrl span{min-width:1.6rem;text-align:center;font-weight:700}
+dialog{background:var(--painel);color:var(--texto);border:1px solid var(--borda);border-radius:10px;width:92%;max-width:520px;max-height:90vh;overflow:auto}
+dialog::backdrop{background:#000a}
+dialog label{margin-bottom:.6rem}
+.card{border:1px solid var(--borda);border-radius:8px;padding:.8rem;margin:.6rem 0}
+.card p{margin:.2rem 0}
+.acoes{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.acoes button{width:auto;padding:.4rem .8rem}
+button.sec{background:transparent;color:var(--texto);border:1px solid var(--borda)}
+
+/* ===== Animações (só transform, opacity e sombras) ===== */
+@view-transition{navigation:auto}
+@keyframes entrar{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes abrir{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:none}}
+@keyframes esmaecer{from{opacity:0}to{opacity:1}}
+@keyframes tremida{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes brilho{0%{transform:scale(1.45);box-shadow:0 0 16px var(--aura)}100%{transform:none;box-shadow:none}}
+@keyframes clarao{0%{transform:scale(1);text-shadow:none}40%{transform:scale(1.1);text-shadow:0 0 18px var(--aura),0 0 36px var(--aura)}100%{transform:scale(1);text-shadow:0 0 6px var(--aura)}}
+@keyframes tremor{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes pisca{0%{filter:brightness(2.2)}100%{filter:none}}
+@keyframes pulsar{50%{opacity:.45}}
+@keyframes aura{0%,100%{box-shadow:0 0 6px var(--aura)}50%{box-shadow:0 0 26px var(--aura)}}
+
+main>section{animation:entrar .4s ease both}
+main>section:nth-of-type(2){animation-delay:.07s}
+main>section:nth-of-type(3){animation-delay:.14s}
+main>section:nth-of-type(4){animation-delay:.21s}
+main>section:nth-of-type(5){animation-delay:.28s}
+main>section:nth-of-type(n+6){animation-delay:.35s}
+.card.entra{animation:entrar .35s ease both}
+dialog[open]{animation:abrir .25s ease}
+dialog[open]::backdrop{animation:esmaecer .25s ease}
+
+button{transition:box-shadow .2s,transform .1s}
+button:not(:disabled):hover{box-shadow:0 0 12px var(--aura)}
+button:not(:disabled):active{transform:scale(.96)}
+
+.dado.girando{animation:tremida .14s linear infinite}
+.dado.brilho{animation:brilho .5s ease-out}
+.critico{color:var(--aura);font-weight:700;animation:clarao .9s ease-out}
+.errou{animation:tremor .4s}
+.pisca{animation:pisca .5s}
+
+.barra{height:.8rem;background:var(--bg);border:1px solid var(--borda);border-radius:99px;overflow:hidden;margin:.5rem 0}
+.cheio{height:100%;background:var(--aura);transform:scaleX(var(--p,1));transform-origin:left;transition:transform .5s ease,background-color .5s}
+.barra[data-estado="Cansado"] .cheio{background:#e0a030}
+.barra[data-estado="Exausto"] .cheio{background:var(--alerta);animation:pulsar 1.2s infinite}
+.barra[data-estado="Esgotado"] .cheio{animation:pulsar .8s infinite}
+.aura-ativa{animation:aura 2.2s ease-in-out infinite;border-color:var(--aura)}
+
+html.sem-animacao *,html.sem-animacao *::before,html.sem-animacao *::after{animation:none!important;transition:none!important}
+
+/* ===== Celular e acessibilidade ===== */
+html{-webkit-text-size-adjust:100%}
+body{overflow-wrap:break-word}
+input,select,textarea,button{font-size:1rem;min-height:44px}
+textarea{min-height:6rem}
+input[type=checkbox]{width:1.5rem;height:1.5rem;min-height:0;margin-right:.5rem}
+label:has(>input[type=checkbox]){display:inline-flex;align-items:center;min-height:44px;margin-right:1rem}
+button,a,select,input{touch-action:manipulation}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);flex-wrap:nowrap;overflow-x:auto}
+nav a{white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;padding:.3rem 1rem}
+.ctrl button{width:2.75rem;min-height:2.75rem}
+dialog{max-height:90vh;max-height:92dvh;width:94%}
+.pular{position:absolute;left:-999px}
+.pular:focus{left:.5rem;top:.5rem;background:var(--aura);color:var(--bg);padding:.6rem 1rem;border-radius:6px;z-index:10}
+.atalho{display:block;padding:.7rem .9rem;margin-bottom:.5rem;min-height:44px;border:1px solid var(--borda);border-radius:8px;color:var(--texto);text-decoration:none}
+.atalho strong{color:var(--aura)}
+.atalho:hover{border-color:var(--aura)}

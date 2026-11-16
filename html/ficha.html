@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<nav><a href="main.html">Início</a><a class="ativo" href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="nen.html">Nen</a></nav>
-<main>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<nav aria-label="Principal"><a href="main.html">Início</a><a class="ativo" aria-current="page" href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a href="nen.html">Nen</a></nav>
+<main id="conteudo">
   <h1>Ficha de personagem</h1>
   <section>
     <h2>Identificação</h2>
@@ -18,8 +19,8 @@
       <label>Idade <input id="idade"></label>
       <label>Ocupação <input id="ocupacao"></label>
     </div>
-    <div id="blocoPe" hidden>
-      <label>Pontos de Evolução (PE) disponíveis <input type="number" id="pe" min="0"></label>
+    <div id="blocoPe">
+      <label>Pontos de Evolução (PE) concedidos pelo mestre <input type="number" id="pe" min="0"></label>
     </div>
   </section>
   <section>
@@ -44,6 +45,9 @@
     <h2>Atributos</h2>
     <p class="suave" id="ptsAtr"></p>
     <div class="grade" id="atributos"></div>
+    <div id="blocoZero" hidden>
+      <label>Justificativa do atributo zerado (obrigatória) <textarea id="justZero"></textarea></label>
+    </div>
   </section>
   <section>
     <h2>Perícias</h2>

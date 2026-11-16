@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Sérgio Netto">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Beyond The Hunter</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hunter RPG</title>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <nav>
-        <a class="ativo" href="main.html">Inicio</a>
-        <a href="ficha.html">Ficha</a>
-        <a href="dado.html">Dados</a>
-        <a href="nen.html">Nen</a>
-    </nav>
-    <main>
-        <h1>Beyond The Hunter</h1>
-        <section>
-            <p>Sistema de mesa próprio, inspirado em Hunter x Hunter. Rolagens com D6: cada 5 ou 6 é um sucesso.</p>
-            <p><a href="ficha.html">Ficha</a>: atributos, perícias, PV e PA calculados sozinhos.</p>
-            <p><a href="dados.html">Dados</a>: testes com dificuldade, vantagem e teste oposto.</p>
-            <P><a href="nen.html">Nen</a>: Controle de Nen, técnicas, custos e sobrecarga.</P>
-            <P class="suave">O personagem fica salvo apenas neste navegador. Use o backup da ficha para levar para outro aparelho.</P>
-        </section>
-    </main>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<nav aria-label="Principal"><a class="ativo" aria-current="page" href="main.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a href="nen.html">Nen</a></nav>
+<main id="conteudo">
+  <h1>Hunter RPG</h1>
+  <section>
+    <p>Sistema de mesa próprio, inspirado em Hunter x Hunter. Rolagens com D6: cada 5 ou 6 é um sucesso.</p>
+    <a class="atalho" href="ficha.html"><strong>Ficha</strong>: atributos, perícias, PV e PA calculados sozinhos.</a>
+    <a class="atalho" href="dado.html"><strong>Dados</strong>: rolagem de D6 com vantagem e desvantagem.</a>
+    <a class="atalho" href="combate.html"><strong>Combate</strong>: ataques com rolagem de acerto e dano.</a>
+    <a class="atalho" href="habilidades.html"><strong>Habilidades</strong>: criador de habilidades de Nen com pontos de construção.</a>
+    <a class="atalho" href="nen.html"><strong>Nen</strong>: Controle de Nen, técnicas, custos e sobrecarga.</a>
+    <p class="suave">O personagem fica salvo apenas neste navegador. Use o backup da ficha para levar para outro aparelho.</p>
+  </section>
+  <section>
+    <h2>Animações</h2>
+    <label>Modo
+      <select id="animacoes">
+        <option value="">Seguir o aparelho</option>
+        <option value="ligadas">Sempre ligadas</option>
+        <option value="desligadas">Desligadas</option>
+      </select>
+    </label>
+    <p class="suave">Se os dados não tremem, o seu aparelho provavelmente está com "Reduzir movimento" ativado. Escolha "Sempre ligadas".</p>
+  </section>
+</main>
+<script src="../JavaScript/comum.js"></script>
+<script src="../JavaScript/main.js"></script>
 </body>
 </html>

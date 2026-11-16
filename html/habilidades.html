@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Habilidades - Hunter RPG</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<nav aria-label="Principal"><a href="main.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="combate.html">Combate</a><a class="ativo" aria-current="page" href="habilidades.html">Habilidades</a><a href="nen.html">Nen</a></nav>
+<main id="conteudo">
+  <h1>Habilidades (Hatsu)</h1>
+  <section>
+    <h2>Rodada <span id="rodadaTxt">1</span></h2>
+    <div class="acoes">
+      <button id="proximaRodada">Próxima rodada</button>
+      <button id="zerarRodada" class="sec">Encerrar combate</button>
+    </div>
+    <p class="suave">A manutenção das técnicas e habilidades ativas é cobrada sozinha a cada rodada.</p>
+    <div id="logRodada" aria-live="polite"></div>
+  </section>
+  <section>
+    <p id="paAtual" class="num"></p>
+    <p id="msg" class="suave" aria-live="polite"></p>
+    <div class="grade">
+      <input id="filtro" placeholder="Filtrar habilidades" aria-label="Filtrar habilidades">
+      <button id="adicionar">Adicionar</button>
+    </div>
+    <div id="lista"></div>
+  </section>
+</main>
+<dialog id="dlg">
+  <form id="form">
+    <h2>Habilidade</h2>
+    <label>Nome <input id="nome" required></label>
+    <div class="grade">
+      <label>Tipo principal <select id="tipo"></select></label>
+      <label>Tipos secundários <input id="secundarios"></label>
+      <label>Custo de aura (PA) <input type="number" id="custoAura" min="1"></label>
+      <label>Manutenção (PA por rodada) <input type="number" id="manutencao" min="0" value="0"></label>
+    </div>
+    <label>Descrição <textarea id="descricao"></textarea></label>
+    <div class="grade">
+      <label>Ativação <input id="ativacao"></label>
+      <label>Alcance <input id="alcance"></label>
+      <label>Duração <input id="duracao"></label>
+    </div>
+    <h2>Efeitos (quantos de cada)</h2>
+    <div class="grade" id="efeitos"></div>
+    <h2>Limitações (quantas de cada)</h2>
+    <div class="grade" id="limites"></div>
+    <label>Condições e restrições <textarea id="condicoes"></textarea></label>
+    <p class="suave">Nova habilidade custa 5 PE. Mudar tipo, custo de aura, manutenção, efeitos ou limitações depois custa 3 PE.</p>
+    <p id="pontos" class="num"></p>
+    <p id="erro" class="aviso"></p>
+    <div class="acoes"><button type="button" class="sec" id="cancelar">Cancelar</button><button>Salvar</button></div>
+  </form>
+</dialog>
+<script src="../JavaScript/comum.js"></script>
+<script src="../JavaScript/habilidades.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Combate - Hunter RPG</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<nav aria-label="Principal"><a href="main.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a class="ativo" aria-current="page" href="combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a href="nen.html">Nen</a></nav>
+<main id="conteudo">
+  <h1>Combate</h1>
+  <section>
+    <h2>Vida</h2>
+    <p class="num" id="pvTxt"></p>
+    <div class="barra" id="barraPV" role="progressbar" aria-label="Barra de vida"><div class="cheio"></div></div>
+    <p id="pvAviso" class="aviso"></p>
+    <div class="grade">
+      <label>Valor <input type="number" id="pvValor" min="0" value="1"></label>
+      <button id="dano" class="sec">Sofrer dano</button>
+      <button id="cura">Curar</button>
+    </div>
+  </section>
+  <section>
+    <h2>Rodada <span id="rodadaTxt">1</span></h2>
+    <p class="num" id="paTxt"></p>
+    <div class="acoes">
+      <button id="proximaRodada">Próxima rodada</button>
+      <button id="zerarRodada" class="sec">Encerrar combate</button>
+    </div>
+    <p class="suave">A manutenção das técnicas e habilidades ativas é cobrada sozinha a cada rodada.</p>
+    <div id="logRodada" aria-live="polite"></div>
+  </section>
+  <section>
+    <div class="grade">
+      <label>Defesa do alvo (sucessos necessários) <input type="number" id="defesaAlvo" min="0" value="1"></label>
+    </div>
+    <p><label><input type="checkbox" id="vant"> Vantagem (+2 dados)</label>
+       <label><input type="checkbox" id="desv"> Desvantagem (-2 dados)</label></p>
+    <div id="resultado" aria-live="polite"></div>
+  </section>
+  <section>
+    <h2>Ataques</h2>
+    <div class="grade">
+      <input id="filtro" placeholder="Filtrar ataques" aria-label="Filtrar ataques">
+      <button id="adicionar">Adicionar</button>
+    </div>
+    <div id="lista"></div>
+  </section>
+</main>
+<dialog id="dlg">
+  <form id="form">
+    <h2>Ataque</h2>
+    <label>Arma do catálogo <select id="arma"></select></label>
+    <label>Nome <input id="nome" required></label>
+    <div class="grade">
+      <label>Dano base (1 a 4) <input type="number" id="dano" min="1" max="4"></label>
+      <label>Dano extra (só com Shu) <input type="number" id="extra" min="0" max="3"></label>
+      <label>Tipo de dano <select id="tipoDano"></select></label>
+      <label>Alcance <select id="alcance"></select></label>
+      <label>Perícia <select id="pericia"></select></label>
+      <label>Atributo do ataque <select id="atributo"></select></label>
+    </div>
+    <label>Anotações <textarea id="notas"></textarea></label>
+    <p id="erro" class="aviso"></p>
+    <div class="acoes"><button type="button" class="sec" id="cancelar">Cancelar</button><button>Salvar</button></div>
+  </form>
+</dialog>
+<script src="../JavaScript/comum.js"></script>
+<script src="../JavaScript/combate.js"></script>
+</body>
+</html>

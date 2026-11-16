@@ -10,6 +10,15 @@ const nivel = (grupo, nome) => grupo === "atributos" ? p.atributos[nome] : nivel
   $(c).addEventListener("input", () => { p[c] = $(c).value; salvar(p); });
 });
 
+// Especialização não é escolha livre: exige autorização do mestre
+let tipoAnterior = p.tipoNen;
+$("tipoNen").addEventListener("change", () => {
+  if ($("tipoNen").value === "Especialização" && !confirm("Especialização depende de autorização do mestre. Confirmar?")) {
+    $("tipoNen").value = tipoAnterior; p.tipoNen = tipoAnterior; salvar(p); return;
+  }
+  tipoAnterior = p.tipoNen;
+});
+
 // ---------- Regras de pontos ----------
 // Criação: 12 pontos de atributo no total e 10 de perícia, máximo 3 em cada.
 // Depois de criado: evolui gastando PE, máximo 5.
@@ -18,9 +27,14 @@ function podeAumentar(grupo, nome) {
   if (p.criado) return p.pe >= CUSTO_PE[grupo];
   return (grupo === "atributos" ? 12 - soma(p.atributos) : 10 - soma(p.pericias)) > 0;
 }
+const temZero = () => Object.values(p.atributos).some(v => v === 0);
 function podeDiminuir(grupo, nome) {
   if (p.criado) return false; // depois de criado só evolui
-  return grupo === "atributos" ? p.atributos[nome] > 1 : p.pericias[nome] > 0;
+  if (grupo === "pericias") return p.pericias[nome] > 0;
+  const v = p.atributos[nome];
+  if (v > 1) return true;
+  // Zerar um atributo devolve 1 ponto, mas só um atributo pode ficar em 0 (com justificativa)
+  return v === 1 && !temZero();
 }
 function mudar(grupo, nome, delta) {
   if (delta > 0) {
@@ -97,21 +111,26 @@ function atualizar() {
     $("ptsPer").textContent = "Evolução: +1 em perícia custa 2 PE (máximo 5).";
   } else {
     $("modo").textContent = "Criação: distribua seus pontos. Depois de finalizar, só é possível evoluir com PE.";
-    $("ptsAtr").textContent = `${atrRest} pontos de atributo restantes (todos começam em 1, máximo 3).`;
+    $("ptsAtr").textContent = `${atrRest} pontos de atributo restantes (todos começam em 1, máximo 3). Um atributo pode ir a 0, com justificativa, e devolve 1 ponto.`;
     $("ptsPer").textContent = `${perRest} pontos de perícia restantes (máximo 3 por perícia).`;
   }
 
-  $("blocoPe").hidden = !p.criado;
+  $("blocoZero").hidden = !temZero();
+  $("justZero").disabled = p.criado;
+  $("tipoNen").disabled = p.criado;
   if (document.activeElement !== $("pe")) $("pe").value = p.pe;
   $("blocoFinal").hidden = p.criado;
   const faltas = [];
   if (!p.origem) faltas.push("escolher a origem");
   if (atrRest > 0) faltas.push(`${atrRest} ponto(s) de atributo`);
   if (perRest > 0) faltas.push(`${perRest} ponto(s) de perícia`);
+  if (temZero() && !p.justZero.trim()) faltas.push("justificar o atributo zerado");
   $("faltam").textContent = faltas.length ? "Falta: " + faltas.join(", ") + "." : "Tudo pronto para finalizar.";
   $("finalizar").disabled = faltas.length > 0;
 }
 
+$("justZero").value = p.justZero;
+$("justZero").addEventListener("input", () => { p.justZero = $("justZero").value; salvar(p); atualizar(); });
 $("pe").addEventListener("input", () => { p.pe = Math.max(0, Number($("pe").value) || 0); salvar(p); atualizar(); });
 $("finalizar").addEventListener("click", () => {
   if (confirm("Finalizar a criação? Depois disso só é possível evoluir com PE.")) { p.criado = true; salvar(p); atualizar(); }
