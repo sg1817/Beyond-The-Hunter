@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Sérgio Netto">
 <title>Nen - Hunter RPG</title>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="shortcut icon" href="../img/trupe.ico" type="image/x-icon">
@@ -11,6 +10,7 @@
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <nav aria-label="Principal"><a href="main.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a class="ativo" aria-current="page" href="nen.html">Nen</a></nav>
+<header class="topo-mobile"><a href="main.html"><span aria-hidden="true">‹</span> Voltar ao painel</a></header>
 <main id="conteudo">
   <h1>Painel de Nen</h1>
   <section id="painel">
@@ -26,6 +26,17 @@
       <button id="descansar" class="sec">Descanso prolongado (restaura PA)</button>
     </div>
     <p id="msg" class="suave" aria-live="polite"></p>
+  </section>
+  <section>
+    <h2>Chama de aura</h2>
+    <div class="linha-chama">
+      <div class="chama" id="chama"></div>
+      <div>
+        <label>Cor da aura <input type="color" id="corAura"></label>
+        <div class="acoes" id="presetsCor" role="group" aria-label="Cores prontas"></div>
+      </div>
+    </div>
+    <p class="suave">A chama cresce e diminui com a sua aura restante.</p>
   </section>
   <section>
     <h2>Rodada <span id="rodadaTxt">1</span></h2>

@@ -47,7 +47,7 @@ button.sec{background:transparent;color:var(--texto);border:1px solid var(--bord
 @keyframes tremor{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 @keyframes pisca{0%{filter:brightness(2.2)}100%{filter:none}}
 @keyframes pulsar{50%{opacity:.45}}
-@keyframes aura{0%,100%{box-shadow:0 0 6px var(--aura)}50%{box-shadow:0 0 26px var(--aura)}}
+@keyframes aura{0%,100%{box-shadow:0 0 6px var(--aura-cor,var(--aura))}50%{box-shadow:0 0 26px var(--aura-cor,var(--aura))}}
 
 main>section{animation:entrar .4s ease both}
 main>section:nth-of-type(2){animation-delay:.07s}
@@ -74,7 +74,7 @@ button:not(:disabled):active{transform:scale(.96)}
 .barra[data-estado="Cansado"] .cheio{background:#e0a030}
 .barra[data-estado="Exausto"] .cheio{background:var(--alerta);animation:pulsar 1.2s infinite}
 .barra[data-estado="Esgotado"] .cheio{animation:pulsar .8s infinite}
-.aura-ativa{animation:aura 2.2s ease-in-out infinite;border-color:var(--aura)}
+.aura-ativa{animation:aura 2.2s ease-in-out infinite;border-color:var(--aura-cor,var(--aura))}
 
 html.sem-animacao *,html.sem-animacao *::before,html.sem-animacao *::after{animation:none!important;transition:none!important}
 
@@ -95,3 +95,34 @@ dialog{max-height:90vh;max-height:92dvh;width:94%}
 .atalho{display:block;padding:.7rem .9rem;margin-bottom:.5rem;min-height:44px;border:1px solid var(--borda);border-radius:8px;color:var(--texto);text-decoration:none}
 .atalho strong{color:var(--aura)}
 .atalho:hover{border-color:var(--aura)}
+
+/* ===== Chama de aura ===== */
+#barraPA:not([data-estado="Cansado"]):not([data-estado="Exausto"]) .cheio{background:var(--aura-cor,var(--aura))}
+.linha-chama{display:flex;align-items:flex-end;gap:1.2rem;flex-wrap:wrap}
+.chama{width:84px;height:118px;flex:none;display:flex;align-items:flex-end;justify-content:center}
+.chama svg{width:100%;height:100%;overflow:visible;transform:scale(var(--escala,1));transform-origin:50% 100%;transition:transform .6s ease;filter:drop-shadow(0 0 8px var(--aura-cor,var(--aura)))}
+.chama .fogo,.chama .miolo{transform-box:fill-box;transform-origin:50% 100%;animation:tremular 1.1s ease-in-out infinite}
+.chama .miolo{animation-duration:.8s;animation-direction:reverse}
+.chama[data-estado="Exausto"] .fogo,.chama[data-estado="Exausto"] .miolo{animation-duration:.5s}
+.chama[data-estado="Esgotado"]{opacity:.55}
+.chama[data-estado="Esgotado"] .fogo,.chama[data-estado="Esgotado"] .miolo{animation:none}
+.chama.intensa .fogo,.chama.intensa .miolo{animation-duration:.55s}
+.chama.intensa svg{filter:drop-shadow(0 0 18px var(--aura-cor,var(--aura)))}
+@keyframes tremular{0%,100%{transform:scale(1,1) skewX(0)}30%{transform:scale(.96,1.07) skewX(-3deg)}60%{transform:scale(1.03,.95) skewX(2deg)}}
+.preset::before{content:"";display:inline-block;width:1rem;height:1rem;border-radius:50%;background:var(--c);margin-right:.5rem;vertical-align:-.15rem;border:1px solid #fff5}
+input[type=color]{padding:.2rem;width:100%}
+
+/* ===== Painel e navegação no celular ===== */
+.topo-mobile{display:none}
+.resumo-dados{flex:1;min-width:180px}
+.resumo-dados p{margin:.3rem 0}
+.atalhos{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.7rem;margin-bottom:1rem}
+.atalhos .atalho{margin:0;min-height:100px;display:flex;flex-direction:column;justify-content:center;gap:.2rem}
+.atalho .icone{font-size:1.6rem}
+.atalho .desc{color:var(--suave);font-size:.9rem}
+@media (max-width:700px){
+  nav{display:none}
+  .topo-mobile{display:block;position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--borda);padding:.2rem 1rem}
+  .topo-mobile a{display:inline-flex;align-items:center;gap:.5rem;min-height:48px;color:var(--aura);text-decoration:none;font-weight:700}
+  .atalhos{grid-template-columns:1fr 1fr}
+}

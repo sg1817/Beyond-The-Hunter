@@ -91,6 +91,10 @@ iniciarLista(p, "ataques", {
 // ---------- Rodadas e aura ----------
 const paTotal = paMax(p);
 if (p.nen.paAtual === null || p.nen.paAtual > paTotal) p.nen.paAtual = paTotal;
-const mostrarPA = () => $("paTxt").textContent = `Aura ${p.nen.paAtual} / ${paTotal}`;
+criarChama($("chama"));
+const mostrarPA = () => {
+  $("paTxt").textContent = `Aura ${p.nen.paAtual} / ${paTotal}`;
+  atualizarChama($("chama"), p.nen.paAtual, paTotal, Object.keys(p.nen.ativas).length > 0);
+};
 mostrarPA();
 iniciarRodadas(p, mostrarPA);

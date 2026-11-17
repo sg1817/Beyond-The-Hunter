@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Sérgio Netto">
 <title>Hunter RPG</title>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="shortcut icon" href="../img/trupe.ico" type="image/x-icon">
@@ -14,14 +13,25 @@
 <main id="conteudo">
   <h1>Hunter RPG</h1>
   <section>
-    <p>Sistema de mesa próprio, inspirado em Hunter x Hunter. Rolagens com D6: cada 5 ou 6 é um sucesso.</p>
-    <a class="atalho" href="ficha.html"><strong>Ficha</strong>: atributos, perícias, PV e PA calculados sozinhos.</a>
-    <a class="atalho" href="dado.html"><strong>Dados</strong>: rolagem de D6 com vantagem e desvantagem.</a>
-    <a class="atalho" href="combate.html"><strong>Combate</strong>: ataques com rolagem de acerto e dano.</a>
-    <a class="atalho" href="habilidades.html"><strong>Habilidades</strong>: criador de habilidades de Nen com pontos de construção.</a>
-    <a class="atalho" href="nen.html"><strong>Nen</strong>: Controle de Nen, técnicas, custos e sobrecarga.</a>
-    <p class="suave">O personagem fica salvo apenas neste navegador. Use o backup da ficha para levar para outro aparelho.</p>
+    <h2 id="resumoNome">Seu personagem</h2>
+    <div class="linha-chama">
+      <div class="chama" id="chama"></div>
+      <div class="resumo-dados">
+        <p>Vida <strong id="rPV"></strong></p>
+        <div class="barra" id="barraPV" aria-label="Barra de vida"><div class="cheio"></div></div>
+        <p>Aura <strong id="rPA"></strong></p>
+        <div class="barra" id="barraPA" aria-label="Barra de aura"><div class="cheio"></div></div>
+        <p class="suave">Rodada <strong id="rRodada"></strong> · PE <strong id="rPE"></strong></p>
+      </div>
+    </div>
   </section>
+  <div class="atalhos">
+    <a class="atalho" href="ficha.html"><span class="icone" aria-hidden="true">📜</span><strong>Ficha</strong><span class="desc">atributos, perícias e origem</span></a>
+    <a class="atalho" href="combate.html"><span class="icone" aria-hidden="true">⚔️</span><strong>Combate</strong><span class="desc">ataques, vida e rodadas</span></a>
+    <a class="atalho" href="nen.html"><span class="icone" aria-hidden="true">🔥</span><strong>Nen</strong><span class="desc">aura, técnicas e controle</span></a>
+    <a class="atalho" href="habilidades.html"><span class="icone" aria-hidden="true">✨</span><strong>Habilidades</strong><span class="desc">criador de Hatsu</span></a>
+    <a class="atalho" href="dado.html"><span class="icone" aria-hidden="true">🎲</span><strong>Dados</strong><span class="desc">rolagem de D6</span></a>
+  </div>
   <section>
     <h2>Animações</h2>
     <label>Modo

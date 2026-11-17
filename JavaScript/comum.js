@@ -23,7 +23,8 @@ function sanear(p) {
   const lim = (v, a, b) => Math.min(b, Math.max(a, Math.floor(Number(v)) || 0));
   ATRIBUTOS.forEach(a => p.atributos[a] = lim(p.atributos[a], 0, 5));
   PERICIAS.forEach(s => p.pericias[s] = lim(p.pericias[s], 0, 5));
-  p.nen = Object.assign({ controle: 1, paAtual: null, tecnicas: {}, ativas: {} }, p.nen);
+  p.nen = Object.assign({ controle: 1, paAtual: null, tecnicas: {}, ativas: {}, corAura: "#d4af37" }, p.nen);
+  if (!/^#[0-9a-f]{6}$/i.test(p.nen.corAura)) p.nen.corAura = "#d4af37";
   p.nen.controle = lim(p.nen.controle, 1, 5);
   p.pe = lim(p.pe, 0, 9999);
   p.rodada = lim(p.rodada, 1, 999);
@@ -245,3 +246,51 @@ function iniciarRodadas(p, aoMudar) {
 // Menu rolável no celular: deixa a página atual visível
 const paginaAtual = document.querySelector("nav a.ativo");
 if (paginaAtual) paginaAtual.scrollIntoView({ inline: "center", block: "nearest" });
+
+// ---------- Cor da aura e chama ----------
+const PRESETS_COR = [["Dourado","#d4af37"],["Azul","#3b9cff"],["Vermelho","#ff4d4d"],["Verde","#3ddc84"],["Roxo","#a855f7"],["Branco","#f5f5f5"]];
+
+// Mistura uma cor hex com outra ([r,g,b]); f vai de 0 (igual) a 1 (cor alvo)
+function misturar(hex, alvo, f) {
+  const n = parseInt(hex.slice(1), 16), cor = [n >> 16, (n >> 8) & 255, n & 255];
+  return "#" + cor.map((v, i) => Math.round(v + (alvo[i] - v) * f).toString(16).padStart(2, "0")).join("");
+}
+// Define a cor da aura para o site todo (chama, barra de aura e brilho)
+function aplicarCorAura(hex) {
+  const r = document.documentElement.style;
+  r.setProperty("--aura-cor", hex);
+  r.setProperty("--aura-cor-clara", misturar(hex, [255, 255, 255], 0.6));
+  r.setProperty("--aura-cor-escura", misturar(hex, [0, 0, 0], 0.4));
+}
+// Seletor de cor + cores prontas (ids: corAura, presetsCor)
+function iniciarCorAura(p) {
+  const $ = id => document.getElementById(id);
+  const mudar = hex => { p.nen.corAura = hex; $("corAura").value = hex; aplicarCorAura(hex); salvar(p); };
+  $("corAura").value = p.nen.corAura;
+  $("corAura").addEventListener("input", () => mudar($("corAura").value));
+  PRESETS_COR.forEach(([nome, hex]) => {
+    const b = botao(nome, () => mudar(hex), "sec preset");
+    b.style.setProperty("--c", hex);
+    $("presetsCor").append(b);
+  });
+}
+// Desenha a chama (SVG) dentro da caixa
+function criarChama(caixa) {
+  caixa.setAttribute("role", "img");
+  caixa.innerHTML = `<svg viewBox="0 0 100 140" aria-hidden="true">
+    <defs><linearGradient id="gradChama" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" style="stop-color:var(--aura-cor-escura,#8a6d1c)"/><stop offset="1" style="stop-color:var(--aura-cor,#d4af37)"/>
+    </linearGradient></defs>
+    <path class="fogo" fill="url(#gradChama)" d="M50 6C52 28 84 46 84 90C84 120 68 136 50 136C32 136 16 120 16 90C16 66 32 56 38 36C42 46 46 44 50 6Z"/>
+    <path class="miolo" style="fill:var(--aura-cor-clara,#f1dc9a)" d="M50 62C54 78 70 86 70 106C70 122 60 132 50 132C40 132 30 122 30 106C30 92 42 86 50 62Z"/>
+  </svg>`;
+}
+// O tamanho segue a aura restante; técnica ativa deixa a chama mais intensa
+function atualizarChama(caixa, atual, max, intensa) {
+  const estado = estadoPorcentagem(atual, max);
+  caixa.style.setProperty("--escala", atual === 0 ? 0.14 : (0.3 + 0.7 * atual / max).toFixed(2));
+  caixa.dataset.estado = estado;
+  caixa.classList.toggle("intensa", !!intensa);
+  caixa.setAttribute("aria-label", `Chama de aura: ${estado}, ${atual} de ${max} PA`);
+}
+aplicarCorAura(carregar().nen.corAura);

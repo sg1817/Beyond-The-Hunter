@@ -56,6 +56,7 @@ function desenhar() {
   contar($("pa"), paMostrado, p.nen.paAtual, v => `${v} / ${max}`);
   paMostrado = p.nen.paAtual;
   atualizarBarra($("barraPA"), p.nen.paAtual, max, estado());
+  atualizarChama($("chama"), p.nen.paAtual, max, Object.keys(p.nen.ativas).length > 0);
   $("painel").classList.toggle("aura-ativa", Object.keys(p.nen.ativas).length > 0);
   $("estado").textContent = estado();
   $("pe").textContent = p.pe;
@@ -83,4 +84,6 @@ $("descansar").addEventListener("click", () => {
   p.nen.paAtual = max; p.nen.ativas = {}; p.pvAtual = null; p.rodada = 1; p.habilidades.forEach(h => h.ativaDesde = null); $("msg").textContent = "PA e PV restaurados."; salvar(p); desenhar();
 });
 iniciarRodadas(p, desenhar);
+criarChama($("chama"));
+iniciarCorAura(p);
 desenhar();
