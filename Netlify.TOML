@@ -1,0 +1,3 @@
+# Diz à Netlify que o site é a própria pasta onde este arquivo está
+[build]
+  publish = "."
