@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hunter RPG</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="shortcut icon" href="../img/trupe.ico" type="image/x-icon">
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<nav aria-label="Principal"><a class="ativo" aria-current="page" href="index.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="../Beyond-The-Hunter/html/combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a href="nen.html">Nen</a></nav>
+<main id="conteudo">
+  <h1>Hunter RPG</h1>
+  <section>
+    <h2 id="resumoNome">Seu personagem</h2>
+    <div class="linha-chama">
+      <div class="chama" id="chama"></div>
+      <div class="resumo-dados">
+        <p>Vida <strong id="rPV"></strong></p>
+        <div class="barra" id="barraPV" aria-label="Barra de vida"><div class="cheio"></div></div>
+        <p>Aura <strong id="rPA"></strong></p>
+        <div class="barra" id="barraPA" aria-label="Barra de aura"><div class="cheio"></div></div>
+        <p class="suave">Rodada <strong id="rRodada"></strong> · PE <strong id="rPE"></strong></p>
+      </div>
+    </div>
+  </section>
+  <div class="atalhos">
+    <a class="atalho" href="ficha.html"><span class="icone" aria-hidden="true">📜</span><strong>Ficha</strong><span class="desc">atributos, perícias e origem</span></a>
+    <a class="atalho" href="combate.html"><span class="icone" aria-hidden="true">⚔️</span><strong>Combate</strong><span class="desc">ataques, vida e rodadas</span></a>
+    <a class="atalho" href="nen.html"><span class="icone" aria-hidden="true">🔥</span><strong>Nen</strong><span class="desc">aura, técnicas e controle</span></a>
+    <a class="atalho" href="habilidades.html"><span class="icone" aria-hidden="true">✨</span><strong>Habilidades</strong><span class="desc">criador de Hatsu</span></a>
+    <a class="atalho" href="dado.html"><span class="icone" aria-hidden="true">🎲</span><strong>Dados</strong><span class="desc">rolagem de D6</span></a>
+  </div>
+  <section>
+    <h2>Animações</h2>
+    <label>Modo
+      <select id="animacoes">
+        <option value="">Seguir o aparelho</option>
+        <option value="ligadas">Sempre ligadas</option>
+        <option value="desligadas">Desligadas</option>
+      </select>
+    </label>
+    <p class="suave">Se os dados não tremem, o seu aparelho provavelmente está com "Reduzir movimento" ativado. Escolha "Sempre ligadas".</p>
+  </section>
+</main>
+<script src="../JavaScript/comum.js"></script>
+<script src="../JavaScript/main.js"></script>
+</body>
+</html>

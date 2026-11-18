@@ -34,7 +34,7 @@ registerTab.addEventListener("click", () => {
 });
 
 emailRedirectTo:
-    window.location.origin + "/html/index.html"
+    window.location.href = "./painel.html";
 
 // Enviar formulário
 authForm.addEventListener("submit", async (event) => {
