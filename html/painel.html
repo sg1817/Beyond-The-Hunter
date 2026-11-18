@@ -9,9 +9,7 @@
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
-<nav aria-label="Principal"><a class="ativo" aria-current="page" href="index.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="../Beyond-The-Hunter/html/combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a href="nen.html">Nen</a><button onclick="sairDaConta()">
-    Sair da conta
-</button></nav>
+<nav aria-label="Principal"><a class="ativo" aria-current="page" href="index.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a href="nen.html">Nen</a><button class="sec sair-nav" data-sair>Sair da conta</button></nav>
 <main id="conteudo">
   <h1>Hunter RPG</h1>
   <section>
@@ -45,8 +43,14 @@
     </label>
     <p class="suave">Se os dados não tremem, o seu aparelho provavelmente está com "Reduzir movimento" ativado. Escolha "Sempre ligadas".</p>
   </section>
+  <section>
+    <h2>Conta</h2>
+    <p class="suave" id="contaEmail"></p>
+    <button class="sec" data-sair>Sair da conta</button>
+  </section>
 </main>
 <script src="../JavaScript/comum.js"></script>
 <script src="../JavaScript/main.js"></script>
+<script type="module" src="../JavaScript/protecao.js"></script>
 </body>
 </html>

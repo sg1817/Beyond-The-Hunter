@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="theme-color" content="#0a0a0a">
     <title>Beyond the Hunter | Acesso</title>
 
     <link rel="stylesheet" href="../css/auth.css">
@@ -26,11 +26,11 @@
             </p>
 
             <div class="auth-tabs">
-                <button id="loginTab" class="active">
+                <button id="loginTab" class="active" aria-pressed="true">
                     Entrar
                 </button>
 
-                <button id="registerTab">
+                <button id="registerTab" aria-pressed="false">
                     Criar conta
                 </button>
             </div>
@@ -42,6 +42,7 @@
                     <input
                         type="text"
                         id="name"
+                        autocomplete="nickname"
                         placeholder="Como deseja ser chamado?"
                     >
                 </div>
@@ -50,6 +51,7 @@
                 <input
                     type="email"
                     id="email"
+                    autocomplete="email"
                     placeholder="Seu e-mail"
                     required
                 >
@@ -58,6 +60,7 @@
                 <input
                     type="password"
                     id="password"
+                    autocomplete="current-password"
                     placeholder="Sua senha"
                     minlength="6"
                     required
@@ -69,7 +72,7 @@
 
             </form>
 
-            <p id="message"></p>
+            <p id="message" aria-live="polite"></p>
 
         </section>
 

@@ -1,39 +1,40 @@
-
 import { supabase } from "./supabase.js";
 
-// Verifica se existe uma sessão ativa
+const LOGIN = "./login.html";
+
+// Páginas internas: sem sessão ativa, volta para o login.
 async function verificarAcesso() {
-    const { data, error } = await supabase.auth.getSession();
+    try {
+        const { data, error } = await supabase.auth.getSession();
 
-    if (error || !data.session) {
-        window.location.replace("./login.html");
-        return;
+        if (error || !data.session) {
+            window.location.replace(LOGIN);
+            return;
+        }
+
+        // Mostra o e-mail da conta, se a página tiver esse espaço (#contaEmail)
+        const campo = document.getElementById("contaEmail");
+        if (campo) campo.textContent = data.session.user.email;
+    } catch {
+        window.location.replace(LOGIN);
     }
-
-    console.log("Usuário autenticado:", data.session.user.email);
 }
-
-// Executa a verificação
 verificarAcesso();
 
-// Detecta quando o usuário sai da conta
+// Quando a conta sai (em qualquer aba), volta para o login
 supabase.auth.onAuthStateChange((event) => {
-    if (event === "SIGNED_OUT") {
-        window.location.replace("./login.html");
-    }
+    if (event === "SIGNED_OUT") window.location.replace(LOGIN);
 });
 
-// Função para sair da conta
 async function sairDaConta() {
     const { error } = await supabase.auth.signOut();
-
     if (error) {
         alert("Não foi possível sair da conta: " + error.message);
         return;
     }
-
-    window.location.replace("./login.html");
+    window.location.replace(LOGIN);
 }
-
-// Disponibiliza a função para os botões da página
 window.sairDaConta = sairDaConta;
+
+// Qualquer botão com data-sair faz logout
+document.querySelectorAll("[data-sair]").forEach(b => b.addEventListener("click", sairDaConta));
