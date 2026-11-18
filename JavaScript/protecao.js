@@ -1,4 +1,5 @@
 import { supabase } from "./supabase.js";
+import "./nuvem.js"; // sincroniza o personagem com a conta em todas as páginas protegidas
 
 const LOGIN = "./login.html";
 
@@ -27,6 +28,17 @@ supabase.auth.onAuthStateChange((event) => {
 });
 
 async function sairDaConta() {
+    // 1. envia para a conta o que ainda não foi enviado
+    if (window.sincronizarAgora) {
+        const ok = await window.sincronizarAgora();
+        if (!ok && !confirm("Não foi possível salvar o personagem na conta agora.\nSair mesmo assim? As alterações deste aparelho serão perdidas.")) return;
+    }
+
+    // 2. limpa o aparelho, para a próxima conta não ver este personagem
+    localStorage.removeItem("hunterPersonagem");
+    localStorage.removeItem("hunterNuvem");
+
+    // 3. sai
     const { error } = await supabase.auth.signOut();
     if (error) {
         alert("Não foi possível sair da conta: " + error.message);
