@@ -23,25 +23,38 @@ $("arma").addEventListener("change", () => {
 const limiteExtra = () => (p.nen.tecnicas["Shu"] || "Não aprendido") !== "Não aprendido" ? 1 : 0;
 const dadosAtaque = a => p.atributos[a.atributo] + nivelPericia(p, a.pericia);
 
-// Regra: dano total = dano da arma + sucessos excedentes + dano extra
+// Regras: o ataque rola Atributo + Perícia (D6; 5 e 6 = sucesso) e só mostra os sucessos.
+// O dano é uma rolagem à parte, SEM regra de sucessos: rola os dados de dano do ataque
+// e soma os valores sorteados (mais o dano extra do Shu).
+const MAX_DADOS_DANO = 10;
 let rolando = false;
-function rolar(a) {
+
+function rolarAtaque(a) {
   if (rolando) return;
   rolando = true;
   const total = Math.max(0, dadosAtaque(a) + ajusteVantagem($("vant").checked, $("desv").checked));
-  const necessarios = Math.max(1, Number($("defesaAlvo").value) || 0);
   const r = rolarDados(total);
-  const exc = r.sucessos - necessarios;
-  const info = el("p", `${a.nome}: rolando ${total}D6...`), caixa = el("div");
-  $("resultado").replaceChildren(info, caixa);
+  const info = el("p", `${a.nome}: rolando ataque (${total}D6)...`), caixa = el("div");
+  $("resAtaque").replaceChildren(el("h3", "Ataque"), info, caixa);
   animarDados(caixa, r).then(() => {
     rolando = false;
-    info.textContent = `${a.nome}: ${total}D6, ${r.sucessos} sucesso(s) contra ${necessarios}`;
-    if (exc < 0) { $("resultado").append(el("p", "Errou.", "aviso errou")); return; }
-    const dano = a.dano + exc + a.extra;
-    $("resultado").append(
-      el("p", `Acertou! Dano total: ${dano}${exc >= 3 ? " (CRÍTICO)" : ""}`, exc >= 3 ? "critico" : ""),
-      el("p", `Arma ${a.dano} + excedentes ${exc} + extra ${a.extra}`, "suave"));
+    info.textContent = `${a.nome}: ${total}D6, ${r.sucessos} sucesso(s)`;
+  });
+}
+
+function rolarDano(a) {
+  if (rolando) return;
+  rolando = true;
+  const r = rolarDados(a.dano);
+  const info = el("p", `${a.nome}: rolando dano (${a.dano}D6)...`), caixa = el("div");
+  $("resDano").replaceChildren(el("h3", "Dano"), info, caixa);
+  animarDados(caixa, r, false).then(() => { // false = não destaca 5 e 6
+    rolando = false;
+    const soma = r.dados.reduce((total, d) => total + d, 0);
+    info.textContent = `${a.nome}: ${a.dano}D6 de dano`;
+    $("resDano").append(
+      el("p", `Dano total: ${soma + a.extra}`, "num"),
+      el("p", `${r.dados.join(" + ")} = ${soma}${a.extra ? ` + ${a.extra} de dano extra` : ""}`, "suave"));
   });
 }
 
@@ -60,8 +73,8 @@ function mudarPV(sinal) {
   p.pvAtual = Math.min(pvTotal, Math.max(0, p.pvAtual + sinal * v));
   salvar(p); desenharPV();
 }
-$("dano").addEventListener("click", () => mudarPV(-1));
-$("cura").addEventListener("click", () => mudarPV(1));
+$("pvDano").addEventListener("click", () => mudarPV(-1));
+$("pvCura").addEventListener("click", () => mudarPV(1));
 desenharPV();
 
 iniciarLista(p, "ataques", {
@@ -75,16 +88,16 @@ iniciarLista(p, "ataques", {
   },
   validar(a) {
     if (!a.nome.trim()) return "Dê um nome ao ataque.";
-    if (!(a.dano >= 1 && a.dano <= 4)) return "O dano base vai de 1 a 4.";
+    if (!(a.dano >= 1 && a.dano <= MAX_DADOS_DANO)) return `Os dados de dano vão de 1 a ${MAX_DADOS_DANO}.`;
     if (!(a.extra >= 0 && a.extra <= limiteExtra())) return `Dano extra só vem do Shu (máximo ${limiteExtra()}).`;
     return "";
   },
   card(a, card, acoes) {
     card.append(el("strong", a.nome),
-      el("p", `Dano ${a.dano}${a.extra ? " +" + a.extra : ""} · ${a.tipoDano} · ${a.alcance}`, "suave"),
+      el("p", `Dano ${a.dano}D6${a.extra ? " +" + a.extra : ""} · ${a.tipoDano} · ${a.alcance}`, "suave"),
       el("p", `Ataque: ${a.atributo} + ${a.pericia} = ${dadosAtaque(a)}D6`, "suave"));
     if (a.notas) card.append(el("p", a.notas, "suave"));
-    acoes.append(botao("Rolar ataque", () => rolar(a)));
+    acoes.append(botao("Rolar ataque", () => rolarAtaque(a)), botao("Rolar dano", () => rolarDano(a)));
   }
 });
 

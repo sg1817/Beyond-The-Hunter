@@ -33,6 +33,9 @@
       </label>
       <label>Perícia da origem (+1 grátis) <select id="periciaOrigem"></select></label>
     </div>
+    <div id="blocoOrigemPersonalizada" hidden>
+      <label>Nome da origem (combinada com o mestre) <input id="origemNome"></label>
+    </div>
     <p id="origemInfo" class="suave"></p>
   </section>
   <section>
@@ -46,7 +49,7 @@
   <section>
     <h2>Atributos</h2>
     <p class="suave" id="ptsAtr"></p>
-    <div class="grade" id="atributos"></div>
+    <div class="lista-ctrl" id="atributos"></div>
     <div id="blocoZero" hidden>
       <label>Justificativa do atributo zerado (obrigatória) <textarea id="justZero"></textarea></label>
     </div>
@@ -54,7 +57,7 @@
   <section>
     <h2>Perícias</h2>
     <p class="suave" id="ptsPer"></p>
-    <div class="grade" id="pericias"></div>
+    <div id="pericias"></div>
   </section>
   <section>
     <h2>Nen e história</h2>

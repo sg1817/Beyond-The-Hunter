@@ -4,10 +4,18 @@ const PERICIAS = ["Luta","Armas brancas","Armas de fogo","Esquiva","Atletismo",
   "Investigação","Medicina","Tecnologia","História","Estratégia",
   "Sobrevivência","Furtividade","Rastreamento","Prestidigitação",
   "Persuasão","Intimidação","Enganação","Intuição","Empatia"];
+// Perícias agrupadas (usado para organizar a ficha)
+const GRUPOS_PERICIAS = {
+  "Combate": ["Luta","Armas brancas","Armas de fogo","Esquiva","Atletismo"],
+  "Conhecimento": ["Investigação","Medicina","Tecnologia","História","Estratégia"],
+  "Exploração": ["Sobrevivência","Furtividade","Rastreamento","Prestidigitação"],
+  "Social": ["Persuasão","Intimidação","Enganação","Intuição","Empatia"]
+};
+const ORIGEM_PERSONALIZADA = "Outra (combinar com o mestre)";
 const CHAVE = "hunterPersonagem"; // nome do "espaço" no localStorage
 
 function novoPersonagem() {
-  const p = { nome:"", idade:"", origem:"", periciaOrigem:"", justZero:"", ocupacao:"", tipoNen:"", historia:"",
+  const p = { nome:"", idade:"", origem:"", periciaOrigem:"", origemNome:"", justZero:"", ocupacao:"", tipoNen:"", historia:"",
     criado:false, pe:0, rodada:1, pvAtual:null, ataques:[], habilidades:[], // criado: criação finalizada; pe: Pontos de Evolução disponíveis
     atributos:{}, pericias:{}, nen:{ controle:1, paAtual:null, tecnicas:{} } };
   ATRIBUTOS.forEach(a => p.atributos[a] = 1);
@@ -149,21 +157,21 @@ function reduzirMovimento() {
 }
 document.documentElement.classList.toggle("sem-animacao", reduzirMovimento());
 
-function revelar(span, valor) { // mostra o resultado final do dado; 5 e 6 acendem
+function revelar(span, valor, destacar) { // mostra o resultado final do dado; 5 e 6 acendem (se destacar)
   span.textContent = valor;
-  span.className = "dado" + (valor >= 5 ? " ok brilho" : "");
+  span.className = "dado" + (destacar && valor >= 5 ? " ok brilho" : "");
 }
 // Dados giram por ~0,6 s e depois são revelados um a um. Devolve uma Promise
-function animarDados(caixa, r) {
+function animarDados(caixa, r, destacar = true) { // destacar=false: sem regra de sucessos (ex.: dano)
   caixa.innerHTML = "";
   caixa.setAttribute("aria-hidden", "true"); // o resultado em texto é lido pelo parágrafo de resumo
   const spans = r.dados.map(() => { const s = el("span", "?", "dado girando"); caixa.append(s); return s; });
   if (!spans.length) return Promise.resolve();
-  if (reduzirMovimento()) { spans.forEach((s, i) => revelar(s, r.dados[i])); return Promise.resolve(); }
+  if (reduzirMovimento()) { spans.forEach((s, i) => revelar(s, r.dados[i], destacar)); return Promise.resolve(); }
   const giro = setInterval(() => spans.forEach(s => s.textContent = 1 + Math.floor(Math.random() * 6)), 70);
   return new Promise(pronto => setTimeout(() => {
     clearInterval(giro);
-    spans.forEach((s, i) => setTimeout(() => { revelar(s, r.dados[i]); if (i === spans.length - 1) pronto(); }, i * 110));
+    spans.forEach((s, i) => setTimeout(() => { revelar(s, r.dados[i], destacar); if (i === spans.length - 1) pronto(); }, i * 110));
   }, 600));
 }
 // Faz um número "contar" de um valor até outro (ex.: aura gasta)

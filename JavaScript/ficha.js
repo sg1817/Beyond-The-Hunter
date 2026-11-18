@@ -52,10 +52,12 @@ function respeitarLimite() {
   PERICIAS.forEach(s => { while (nivelPericia(p, s) > 3 && p.pericias[s] > 0) p.pericias[s]--; });
 }
 function preencherPericiasOrigem() {
-  const lista = (ORIGENS[p.origem] || { pericias: [] }).pericias;
+  const personalizada = p.origem === ORIGEM_PERSONALIZADA; // origem combinada com o mestre: qualquer perícia
+  const lista = personalizada ? PERICIAS : (ORIGENS[p.origem] || { pericias: [] }).pericias;
   $("periciaOrigem").innerHTML = "";
+  if (personalizada) $("periciaOrigem").add(new Option("Escolha a perícia", ""));
   lista.forEach(s => $("periciaOrigem").add(new Option(s, s)));
-  p.periciaOrigem = lista.includes(p.periciaOrigem) ? p.periciaOrigem : (lista[0] || "");
+  p.periciaOrigem = lista.includes(p.periciaOrigem) ? p.periciaOrigem : (personalizada ? "" : (lista[0] || ""));
   $("periciaOrigem").value = p.periciaOrigem;
 }
 if (!ORIGENS[p.origem]) p.origem = "";
@@ -83,11 +85,16 @@ function criarLinha(idCaixa, nome, grupo) {
   menos.addEventListener("click", () => mudar(grupo, nome, -1));
   mais.addEventListener("click", () => mudar(grupo, nome, 1));
   caixa.append(rot, menos, valor, mais);
-  $(idCaixa).appendChild(caixa);
+  (typeof idCaixa === "string" ? $(idCaixa) : idCaixa).appendChild(caixa);
   linhas.push({ grupo, nome, valor, menos, mais });
 }
 ATRIBUTOS.forEach(n => criarLinha("atributos", n, "atributos"));
-PERICIAS.forEach(n => criarLinha("pericias", n, "pericias"));
+// Perícias organizadas por grupo (Combate, Conhecimento, Exploração, Social)
+Object.entries(GRUPOS_PERICIAS).forEach(([titulo, nomes]) => {
+  const grupo = el("div", "", "lista-ctrl");
+  $("pericias").append(el("h3", titulo), grupo);
+  nomes.forEach(n => criarLinha(grupo, n, "pericias"));
+});
 
 // ---------- Atualiza a tela inteira a partir dos dados ----------
 function atualizar() {
@@ -104,6 +111,8 @@ function atualizar() {
   const o = ORIGENS[p.origem];
   $("origemInfo").textContent = o ? `Benefício: ${o.beneficio} Complicação: ${o.complicacao}` : "Escolha uma origem para ver o benefício.";
   $("origem").disabled = $("periciaOrigem").disabled = p.criado;
+  $("blocoOrigemPersonalizada").hidden = p.origem !== ORIGEM_PERSONALIZADA;
+  $("origemNome").disabled = p.criado;
 
   if (p.criado) {
     $("modo").textContent = "Personagem criado. Para evoluir, gaste Pontos de Evolução (PE).";
@@ -122,6 +131,8 @@ function atualizar() {
   $("blocoFinal").hidden = p.criado;
   const faltas = [];
   if (!p.origem) faltas.push("escolher a origem");
+  if (p.origem === ORIGEM_PERSONALIZADA && !(p.origemNome || "").trim()) faltas.push("dar um nome à origem");
+  if (p.origem === ORIGEM_PERSONALIZADA && !p.periciaOrigem) faltas.push("escolher a perícia da origem");
   if (atrRest > 0) faltas.push(`${atrRest} ponto(s) de atributo`);
   if (perRest > 0) faltas.push(`${perRest} ponto(s) de perícia`);
   if (temZero() && !p.justZero.trim()) faltas.push("justificar o atributo zerado");
@@ -136,6 +147,8 @@ $("finalizar").addEventListener("click", () => {
   if (confirm("Finalizar a criação? Depois disso só é possível evoluir com PE.")) { p.criado = true; salvar(p); atualizar(); }
 });
 
+$("origemNome").value = p.origemNome || "";
+$("origemNome").addEventListener("input", () => { p.origemNome = $("origemNome").value; salvar(p); atualizar(); });
 preencherPericiasOrigem();
 respeitarLimite();
 salvar(p);

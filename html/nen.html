@@ -10,14 +10,14 @@
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <nav aria-label="Principal"><a href="index.html">Início</a><a href="ficha.html">Ficha</a><a href="dado.html">Dados</a><a href="combate.html">Combate</a><a href="habilidades.html">Habilidades</a><a class="ativo" aria-current="page" href="nen.html">Nen</a></nav>
-<header class="topo-mobile"><a href="Sindex.html"><span aria-hidden="true">‹</span> Voltar ao painel</a></header>
+<header class="topo-mobile"><a href="painel.html"><span aria-hidden="true">‹</span> Voltar ao painel</a></header>
 <main id="conteudo">
   <h1>Painel de Nen</h1>
   <section id="painel">
     <div class="grade">
       <div><span class="suave">Aura atual</span><div class="num" id="pa">0</div></div>
       <div><span class="suave">Estado</span><div class="num" id="estado">-</div></div>
-      <div><span class="suave">Controle de Nen</span><div class="num" id="controleTxt"></div></div>
+      <div><span class="suave">Controle de Nen</span><div class="num"><span id="controleTxt"></span> <small id="controleNivel"></small></div></div>
       <div><span class="suave">PE disponíveis</span><div class="num" id="pe">0</div></div>
     </div>
     <div class="barra" id="barraPA" role="progressbar" aria-label="Barra de aura"><div class="cheio"></div></div>

@@ -20,8 +20,8 @@
     <p id="pvAviso" class="aviso"></p>
     <div class="grade">
       <label>Valor <input type="number" id="pvValor" min="0" value="1"></label>
-      <button id="dano" class="sec">Sofrer dano</button>
-      <button id="cura">Curar</button>
+      <button id="pvDano" class="sec">Sofrer dano</button>
+      <button id="pvCura">Curar</button>
     </div>
   </section>
   <section>
@@ -35,12 +35,10 @@
     <div id="logRodada" aria-live="polite"></div>
   </section>
   <section>
-    <div class="grade">
-      <label>Defesa do alvo (sucessos necessários) <input type="number" id="defesaAlvo" min="0" value="1"></label>
-    </div>
-    <p><label><input type="checkbox" id="vant"> Vantagem (+2 dados)</label>
-       <label><input type="checkbox" id="desv"> Desvantagem (-2 dados)</label></p>
-    <div id="resultado" aria-live="polite"></div>
+    <p><label><input type="checkbox" id="vant"> Vantagem no ataque (+2 dados)</label>
+       <label><input type="checkbox" id="desv"> Desvantagem no ataque (-2 dados)</label></p>
+    <div id="resAtaque" aria-live="polite"></div>
+    <div id="resDano" aria-live="polite"></div>
   </section>
   <section>
     <h2>Ataques</h2>
@@ -57,7 +55,7 @@
     <label>Arma do catálogo <select id="arma"></select></label>
     <label>Nome <input id="nome" required></label>
     <div class="grade">
-      <label>Dano base (1 a 4) <input type="number" id="dano" min="1" max="4"></label>
+      <label>Dados de dano (1 a 10) <input type="number" id="dano" min="1" max="10"></label>
       <label>Dano extra (só com Shu) <input type="number" id="extra" min="0" max="3"></label>
       <label>Tipo de dano <select id="tipoDano"></select></label>
       <label>Alcance <select id="alcance"></select></label>

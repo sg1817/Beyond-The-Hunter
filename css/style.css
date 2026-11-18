@@ -126,3 +126,12 @@ input[type=color]{padding:.2rem;width:100%}
   .topo-mobile a{display:inline-flex;align-items:center;gap:.5rem;min-height:48px;color:var(--aura);text-decoration:none;font-weight:700}
   .atalhos{grid-template-columns:1fr 1fr}
 }
+nav .sair-nav{width:auto;margin-left:auto;min-height:44px}
+
+/* ===== Ficha: atributos e perícias alinhados (principalmente no celular) ===== */
+.lista-ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 1.5rem}
+.ctrl{display:grid;grid-template-columns:1fr auto 2.2rem auto;align-items:center;gap:.5rem;padding:.25rem 0;border-bottom:1px solid var(--borda)}
+.ctrl label{margin:0}
+.ctrl span{min-width:0;text-align:center}
+h3{margin:1.2rem 0 .2rem;font-family:Georgia,serif;font-size:1.05rem;color:var(--aura)}
+.num small{font-size:.9rem;font-weight:400;color:var(--suave);white-space:nowrap}

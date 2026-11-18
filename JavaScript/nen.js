@@ -60,7 +60,8 @@ function desenhar() {
   $("painel").classList.toggle("aura-ativa", Object.keys(p.nen.ativas).length > 0);
   $("estado").textContent = estado();
   $("pe").textContent = p.pe;
-  $("controleTxt").textContent = `${p.nen.controle} - ${NIVEIS[p.nen.controle]}`;
+  $("controleTxt").textContent = p.nen.controle;
+  $("controleNivel").textContent = NIVEIS[p.nen.controle];
   $("evoluirControle").hidden = p.nen.controle >= 5;
   if (p.nen.controle < 5) $("evoluirControle").textContent = `Evoluir Controle (${CUSTO_CONTROLE[p.nen.controle + 1]} PE)`;
   $("tecnicas").innerHTML = "";
